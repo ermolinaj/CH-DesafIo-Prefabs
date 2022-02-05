@@ -5,6 +5,10 @@ using UnityEngine;
 public class CannonWithInputs : MonoBehaviour
 {
     [SerializeField] GameObject BulletType;
+    [SerializeField] GameObject TwoBulletsType;
+    [SerializeField] GameObject ThreeBulletsType;
+    [SerializeField] GameObject FourBulletsType;
+
     bool isShooting;
 
     // Start is called before the first frame update
@@ -40,16 +44,27 @@ public class CannonWithInputs : MonoBehaviour
         isShooting = true;
         Debug.Log("Disparando " + bulletAmmount.ToString() + " balas.");
 
-        for(int i = 1; i <= bulletAmmount; i ++)
+        switch(bulletAmmount)
         {
-            //Asumo que el script siempre va a ser asignado a un cañon con un object spawning point como child en el indice 0    
-            spawnBullet();
+            case 2:
+                spawnBullet(TwoBulletsType);
+                break;
+            case 3:
+                spawnBullet(ThreeBulletsType);
+                break;
+            case 4:
+                spawnBullet(FourBulletsType);
+                break;
+            default:
+                spawnBullet(BulletType);
+                break;
         }
+        
         isShooting = false;
     }
 
-    void spawnBullet()
+    void spawnBullet(GameObject bulletType)
     {
-        Instantiate(BulletType, transform.GetChild(0).transform);
+        Instantiate(bulletType, transform.GetChild(0).transform);
     }
 }
